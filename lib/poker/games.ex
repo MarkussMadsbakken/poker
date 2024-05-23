@@ -53,6 +53,7 @@ defmodule Poker.Games do
     %Game{}
     |> Game.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:new_game)
   end
 
   @doc """
@@ -71,6 +72,7 @@ defmodule Poker.Games do
     game
     |> Game.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:update_game)
   end
 
   @doc """
@@ -87,6 +89,7 @@ defmodule Poker.Games do
   """
   def delete_game(%Game{} = game) do
     Repo.delete(game)
+    |> broadcast(:delete_game)
   end
 
   @doc """
@@ -98,7 +101,22 @@ defmodule Poker.Games do
       %Ecto.Changeset{data: %Game{}}
 
   """
+
   def change_game(%Game{} = game, attrs \\ %{}) do
     Game.changeset(game, attrs)
+  end
+
+  @doc """
+  Subscribes to the games channel
+  """
+  def subscribe do
+    Phoenix.PubSub.subscribe(Poker.PubSub, "games")
+  end
+
+  defp broadcast({:err, _reason} = error, _event), do: error
+
+  defp broadcast({:ok, game}, event) do
+    Phoenix.PubSub.broadcast(Poker.PubSub, "games", {event, game})
+    {:ok, game}
   end
 end
