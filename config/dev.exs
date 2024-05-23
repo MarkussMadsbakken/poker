@@ -23,7 +23,7 @@ config :poker, PokerWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "1Vwr+dqD827kbCu2SevHIe9u9D97tRGxmgBI7g+H5QZqQ4PUnB8dhEb32pjjgEml",
+  secret_key_base: "5uLjis3MlsYrY8TsNAIh4HAwQUikM2+S44KnFZmC+Cm5OwduCplT7W+TAjDyIVNO",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:poker, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:poker, ~w(--watch)]}

@@ -17,7 +17,7 @@ config :poker, Poker.Repo,
 # you can enable the server option below.
 config :poker, PokerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "MWsdeAptkkwWjWq0LlVvZUYg10dODNV+tiKN5vT0vnnSVmZt/kfdcamSU8xvbgri",
+  secret_key_base: "IcpGzwGY6shv35gmY4gWuej8+B5excw4P+WCsql2lW88py5TfRtlhOxDLwFyond5",
   server: false
 
 # In test we don't send emails.

@@ -20,7 +20,7 @@ config :poker, PokerWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Poker.PubSub,
-  live_view: [signing_salt: "AWRstw5P"]
+  live_view: [signing_salt: "Ruy30az8"]
 
 # Configures the mailer
 #

@@ -7,7 +7,7 @@ defmodule PokerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_poker_key",
-    signing_salt: "GBsgQe26",
+    signing_salt: "k+L0eLho",
     same_site: "Lax"
   ]
 
