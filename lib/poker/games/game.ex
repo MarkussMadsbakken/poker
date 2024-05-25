@@ -5,6 +5,9 @@ defmodule Poker.Games.Game do
   schema "games" do
     field :gameid, :string
 
+    has_many :users, Poker.Users.User
+    has_many :messages, Poker.Chat.Message
+
     timestamps(type: :utc_datetime)
   end
 
@@ -13,5 +16,6 @@ defmodule Poker.Games.Game do
     game
     |> cast(attrs, [:gameid])
     |> validate_required([:gameid])
+    |> unique_constraint([:gameid])
   end
 end

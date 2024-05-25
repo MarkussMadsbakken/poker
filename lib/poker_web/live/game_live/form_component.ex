@@ -67,8 +67,8 @@ defmodule PokerWeb.GameLive.FormComponent do
     end
   end
 
-  defp save_game(socket, :new, game_params) do
-    case Games.create_game(game_params) do
+  defp save_game(socket, :new, _) do
+    case Games.create_game() do
       {:ok, game} ->
         notify_parent({:saved, game})
 

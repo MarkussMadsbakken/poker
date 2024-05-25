@@ -3,3 +3,13 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+:root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 31, 31, 31;
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background-color: #1f1f1f;
+}

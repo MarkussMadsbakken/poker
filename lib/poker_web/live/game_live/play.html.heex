@@ -1,15 +1,8 @@
-<div class=" flex flex-col space-y-4 text-center">
-  <div>
-    Game <%= @game.id %>!
-  </div>
-
-  <div>
-    <button phx-click="btn-click">
-      Big click!
-    </button>
-
-    <div>
-      Clicks: <%= @clicks %>
+<div class="flex flex-col items-center justify-center max-h-screen h-screen">
+  <div class="flex flex-row-reverse h-full m-0 p-0 box-content">
+    <div class="flex-grow p-0 m-0">
+      <.live_component module={PokerWeb.GameLive.ChatComponent} id="game_chat" text={@chat_text}
+        messages={@streams.messages} scrolled_to_top={@scrolled_to_top} />
     </div>
   </div>
 </div>

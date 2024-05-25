@@ -61,4 +61,15 @@ defmodule PokerWeb.GameLive.Index do
 
     {:noreply, stream_delete(socket, :games, game)}
   end
+
+  @impl true
+  def handle_event("create_new_game", _, socket) do
+    case Games.create_game() do
+      {:ok, game} ->
+        {:noreply, stream_insert(socket, :games, game)}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, :game, changeset)}
+    end
+  end
 end

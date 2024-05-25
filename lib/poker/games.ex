@@ -35,8 +35,17 @@ defmodule Poker.Games do
       ** (Ecto.NoResultsError)
 
   """
-  def get_game!(id), do: Repo.get!(Game, id)
+  def get_game!(gameid) do
+    query =
+      from(g in Game,
+        where: g.gameid == ^gameid,
+        select: g
+      )
 
+    Repo.one(query)
+  end
+
+  @spec create_game() :: {:err, any()} | {:ok, any()}
   @doc """
   Creates a game.
 
@@ -49,11 +58,24 @@ defmodule Poker.Games do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_game(attrs \\ %{}) do
+  def create_game() do
     %Game{}
-    |> Game.changeset(attrs)
+    |> Game.changeset(%{gameid: generate_gameid()})
     |> Repo.insert()
     |> broadcast(:new_game)
+  end
+
+  def create_gameid() do
+    generate_gameid()
+  end
+
+  @spec generate_gameid() :: binary()
+  def generate_gameid() do
+    length = 4
+    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    chars_list = for <<ch::utf8 <- chars>>, do: <<ch::utf8>>
+
+    Enum.take_random(chars_list, length) |> Enum.join()
   end
 
   @doc """

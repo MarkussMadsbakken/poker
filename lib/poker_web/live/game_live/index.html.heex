@@ -1,41 +1,21 @@
-<.header>
-  Listing Games
-  <:actions>
-    <.link patch={~p"/games/new"}>
-      <.button>New Game</.button>
-    </.link>
-  </:actions>
-</.header>
+<div class="flex flex-col w-full justify-center">
+  <div class="flex justify-center text-center text-4xl font-semibold">
+    Play
+  </div>
+  <div class="mt-8 w-full flex justify-center">
+    <.button class="w-7/12 h-20 text-md text-center" phx-click="create_new_game">
+      Create new game
+    </.button>
+  </div>
 
-<.table
-  id="games"
-  rows={@streams.games}
-  row_click={fn {_id, game} -> JS.navigate(~p"/games/#{game}") end}
->
-  <:col :let={{_id, game}} label="Gameid"><%= game.gameid %></:col>
-  <:action :let={{_id, game}}>
-    <div class="sr-only">
-      <.link navigate={~p"/games/#{game}"}>Show</.link>
+  <div class="flex flex-col space-y-2 p-2 mt-5 justify-center">
+    <div class="w-full flex justify-center text-center text-xl mt-4 mb-4">
+      Games
     </div>
-    <.link patch={~p"/games/#{game}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, game}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: game.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
-</.table>
-
-<.modal :if={@live_action in [:new, :edit]} id="game-modal" show on_cancel={JS.patch(~p"/games")}>
-  <.live_component
-    module={PokerWeb.GameLive.FormComponent}
-    id={@game.id || :new}
-    title={@page_title}
-    action={@live_action}
-    game={@game}
-    patch={~p"/games"}
-  />
-</.modal>
+    <div phx-update="stream" id="games_stream" class="grid grid-cols-2 gap-8 place-content-center m-auto">
+      <%= for {id, game} <- @streams.games do %>
+        <.live_component module={PokerWeb.GameLive.GamecardComponent} id={id} gameid={game.gameid} />
+        <% end %>
+    </div>
+  </div>
+</div>

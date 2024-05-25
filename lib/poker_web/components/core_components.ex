@@ -231,8 +231,8 @@ defmodule PokerWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "phx-submit-loading:opacity-75 rounded-md bg-neutral-600 hover:bg-neutral-700 py-2 px-3",
+        "leading-6 text-white active:text-white/80",
         @class
       ]}
       {@rest}
@@ -370,7 +370,10 @@ defmodule PokerWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div
+      phx-feedback-for={@name}
+      class="w-full h-full flex flex-row bg-neutral-700 border border-neutral-800 rounded-lg p-1"
+    >
       <.label for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -378,10 +381,10 @@ defmodule PokerWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          "w-full h-full text-white focus:ring-0 bg-transparent sm:text-md sm:leading-6",
+          "phx-no-feedback:border-neutral-700 phx-no-feedback:focus:border-neutral-700",
+          @errors == [] && "border-neutral-700 focus:border-neutral-700",
+          @errors != [] && "border-rose-600 focus:border-rose-600"
         ]}
         {@rest}
       />
